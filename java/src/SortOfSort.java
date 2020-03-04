@@ -16,12 +16,12 @@ public class SortOfSort {
     //finds the max element of the array and returns the index it is at
     public int findMax(int [] arr,int beginIndex, int endIndex){
 
-        int maxNum = arr[0];
+        int maxNum = arr[beginIndex];
         int index = 0;
 
         //bubble sorting to find largest number
-        for (int i = 0; i < arr.length-endIndex; i++){
-            if (arr[i] > maxNum){
+        for (int i = beginIndex; i < arr.length-endIndex; i++){
+            if (arr[i] >= maxNum){
                 maxNum = arr[i];
                 index = i;
             }
@@ -39,39 +39,40 @@ public class SortOfSort {
     //-------------------------------------------------------------------------------------------
 
     public void sortOfSort(int [] arr){
-        int index = 0;
-        int rightCounter = 0;
-        int leftCounter = 0;
+        int startIndex = 0;
+        int endIndex = 0;
+        int beginIndex = 0;
         int switchSides = 0;
         int maxIndex = 0;
         boolean goRight = true;
 
 
-        for(int i = 0; i < arr.length; i++){
-            if(!goRight){
-                maxIndex = findMax(arr,index,i);
-            }
+        for(int i = 0; i <= (arr.length /2) + 2; i++){
             //finds the max element of the array and returns the index it is at
-             maxIndex = findMax(arr,0,i);
+            maxIndex = findMax(arr,startIndex,endIndex);
+            if(!goRight){
+                startIndex++;
+            }
+
+
 
             //when true, will switch the max element to the right side (decreasing position by one each time)
             if(goRight){
-               switchNums(arr, maxIndex, arr.length-1 - rightCounter);
-                rightCounter++;
+               switchNums(arr, maxIndex, arr.length-1 - endIndex);
+                endIndex++;
                 switchSides ++;
 
                 //changes goRight to false after two turns, so next time it will go left
                 if(switchSides == 2){
-                    index++;
                     goRight = false;
                     switchSides = 0;
                 }
             }
             //when false, will switch the max element to the left side (increasing position by one each time)
             else if (!goRight){
-                switchNums(arr,maxIndex,leftCounter);
+                switchNums(arr,maxIndex,beginIndex);
 
-                leftCounter++;
+                beginIndex++;
                 switchSides++;
 
                 //changes goRight to true after two turns, so next time it will go right again
@@ -84,7 +85,7 @@ public class SortOfSort {
         }
 
         for (int i = 0; i < arr.length; i++){
-            System.out.print(arr[i]);
+            System.out.print(arr[i] + ", ");
         }
 
     }
