@@ -38,28 +38,31 @@ public class SortOfSort {
     }
     //-------------------------------------------------------------------------------------------
 
-    public void sortOfSort(int [] arr){
+    public int[] sortOfSort(int [] arr){
         int startIndex = 0;
-        int endIndex = 0;
-        int beginIndex = 0;
+        int maxRightIndex = 0;
+        int maxLeftIndex = 0;
         int switchSides = 0;
-        int maxIndex = 0;
+        int maxIndex;
         boolean goRight = true;
+
+        if(arr.length == 1){
+            return arr;
+        }
 
 
         for(int i = 0; i <= (arr.length /2) + 2; i++){
             //finds the max element of the array and returns the index it is at
-            maxIndex = findMax(arr,startIndex,endIndex);
+            maxIndex = findMax(arr,startIndex,maxRightIndex);
             if(!goRight){
                 startIndex++;
             }
 
-
-
             //when true, will switch the max element to the right side (decreasing position by one each time)
             if(goRight){
-               switchNums(arr, maxIndex, arr.length-1 - endIndex);
-                endIndex++;
+               switchNums(arr, maxIndex, arr.length-1 - maxRightIndex);
+
+                maxRightIndex++;
                 switchSides ++;
 
                 //changes goRight to false after two turns, so next time it will go left
@@ -70,9 +73,9 @@ public class SortOfSort {
             }
             //when false, will switch the max element to the left side (increasing position by one each time)
             else if (!goRight){
-                switchNums(arr,maxIndex,beginIndex);
+                switchNums(arr,maxIndex,maxLeftIndex);
 
-                beginIndex++;
+                maxLeftIndex++;
                 switchSides++;
 
                 //changes goRight to true after two turns, so next time it will go right again
@@ -88,6 +91,7 @@ public class SortOfSort {
             System.out.print(arr[i] + ", ");
         }
 
+        return arr;
     }
 
 
