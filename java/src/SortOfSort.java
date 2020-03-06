@@ -39,7 +39,6 @@ public class SortOfSort {
     //-------------------------------------------------------------------------------------------
 
     public int[] sortOfSort(int [] arr){
-        int startIndex = 0;
         int maxRightIndex = 0;
         int maxLeftIndex = 0;
         int switchSides = 0;
@@ -53,10 +52,7 @@ public class SortOfSort {
 
         for(int i = 0; i <= (arr.length /2) + 2; i++){
             //finds the max element of the array and returns the index it is at
-            maxIndex = findMax(arr,startIndex,maxRightIndex);
-            if(!goRight){
-                startIndex++;
-            }
+            maxIndex = findMax(arr,maxLeftIndex,maxRightIndex);
 
             //when true, will switch the max element to the right side (decreasing position by one each time)
             if(goRight){
@@ -84,16 +80,7 @@ public class SortOfSort {
                     switchSides = 0;
                 }
             }
-
         }
-
-        for (int i = 0; i < arr.length; i++){
-            System.out.print(arr[i] + ", ");
-        }
-
         return arr;
     }
-
-
-
 }
